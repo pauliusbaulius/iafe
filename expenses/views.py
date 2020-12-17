@@ -35,6 +35,7 @@ class ExpenseCreateView(LoginRequiredMixin, CreateView):
     form_class = ExpenseCreateForm
     template_name = "expenses/expense_form.html"
     # fields = ["date", "time", "amount", "location", "payment", "comment"]
+    success_url = reverse_lazy("expense-list")
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -43,9 +44,13 @@ class ExpenseCreateView(LoginRequiredMixin, CreateView):
 
 class ExpenseUpdateView(LoginRequiredMixin, UpdateView):
     model = Expense
+    form_class = ExpenseCreateForm
     template_name = "expenses/expense_form.html"
+    success_url = reverse_lazy("expense-list")
 
 
 class ExpenseDeleteView(LoginRequiredMixin, DeleteView):
     model = Expense
-    success_url = reverse_lazy("expenses")
+    template_name = "expenses/expense_delete.html"
+    success_url = reverse_lazy("expense-list")
+
