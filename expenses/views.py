@@ -42,6 +42,11 @@ class ExpenseCreateView(LoginRequiredMixin, CreateView):
     template_name = "expenses/expense_form.html"
     success_url = reverse_lazy("expense-list")
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
+
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super(ExpenseCreateView, self).form_valid(form)

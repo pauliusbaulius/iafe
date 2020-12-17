@@ -34,7 +34,10 @@ class ExpenseCreateForm(forms.ModelForm):
         exclude = ("owner", )
         widgets = {"date": DateInput(), "time": TimeInput()}
 
-    # FIXME all users can see location and payment of other users!
+    def __init__(self, *args, user, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['location'].queryset = user.location_set.all()
+        self.fields['payment'].queryset = user.payment_set.all()
 
 
 class LocationCreateForm(forms.ModelForm):
