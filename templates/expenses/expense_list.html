@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Expenses</h1>
+    {% if my_expense_list %}
+        <ul>
+            {% for expense in my_expense_list %}
+                <li>
+                    <a href="{{ expense.get_absolute_url }}">
+                    {{ expense }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no expenses, go add some!</p>
+    {% endif %}
+
+    <!-- Pagination, needed for massive lists :^) -->
+        {% block pagination %}
+            {% if is_paginated %}
+                <div>
+                    <span>
+                        {% if page_obj.has_previous %}
+                            <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                        {% endif %}
+                    <span>
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+                        {% if page_obj.has_next %}
+                            <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                        {% endif %}
+                    </span>
+                </div>
+            {% endif %}
+        {% endblock %}
+
+{% endblock %}

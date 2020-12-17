@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block title %}<title>My Application</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+
+</head>
+<body>
+    <nav>
+      {% block sidebar %}
+          <ul>
+              <li><a href="{% url 'index' %}">Home</a></li>
+              {% if user.is_authenticated %}
+                  <li>User: {{ user.get_username }}</li>
+                  <!-- Links visible to logged-in users. -->
+                  <li><a href="{% url 'expenses-index' %}">Expenses</a></li>
+                  <li><a href="{% url 'logout' %}?next={{request.path}}">Logout</a></li>
+              {% else %}
+                  <li><a href="{% url 'login' %}?next={{request.path}}">Login</a></li>
+              {% endif %}
+          </ul>
+      {% endblock %}
+    </nav>
+
+    <div class="content">
+        {% block content %}
+          <!-- Content to be filled in by inheriting pages! -->
+        {% endblock %}
+
+    </div>
+</body>
+</html>

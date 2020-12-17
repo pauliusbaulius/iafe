@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+flake8 = "*"
+
+[dev-packages]
+bandit = "*"
+black = ">20.8b1"
+flake8 = "*"
+pylint = "*"
+isort = "*"
+
+[requires]
+python_version = "3.8"
