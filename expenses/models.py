@@ -53,20 +53,18 @@ class Expense(models.Model):
     date = models.DateField(db_index=True)
     time = models.TimeField(null=True, blank=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2, help_text="Amount of € spent.")
-    location = models.ForeignKey("Location", on_delete=models.SET_NULL, null=True, blank=True)
+    location = models.ForeignKey("Location", on_delete=models.SET_NULL, null=True)
     # picture = models.ForeignKey("Picture", on_delete=models.SET_NULL, null=True, blank=True)
     # document = models.ForeignKey("Document", on_delete=models.SET_NULL, null=True, blank=True)
-    payment = models.ForeignKey("Payment", on_delete=models.SET_NULL, null=True, blank=True, db_index=True)
+    payment = models.ForeignKey("Payment", on_delete=models.SET_NULL, db_index=True, null=True)
     comment = models.TextField(null=True, blank=True, help_text="Additional notes...")
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.date} {self.time} - {self.amount}€ with {self.payment} in [{self.location}]"
+        return f"[{self.date} {self.time}] {self.amount}€"
 
     def get_absolute_url(self):
         return reverse("expense-detail", args=[str(self.id)])
 
     class Meta:
-        ordering = ["date", "time"]
-
-
+        ordering = ["-date", "-time"]

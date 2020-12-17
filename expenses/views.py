@@ -2,10 +2,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import DeleteView, DetailView, ListView, UpdateView, CreateView
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  UpdateView)
 
-from expenses.models import Expense
 from expenses.forms import ExpenseCreateForm
+from expenses.models import Expense
 
 
 @login_required
@@ -33,7 +34,7 @@ class ExpenseCreateView(LoginRequiredMixin, CreateView):
     model = Expense
     form_class = ExpenseCreateForm
     template_name = "expenses/expense_form.html"
-    #fields = ["date", "time", "amount", "location", "payment", "comment"]
+    # fields = ["date", "time", "amount", "location", "payment", "comment"]
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
