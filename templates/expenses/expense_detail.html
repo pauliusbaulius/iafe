@@ -8,10 +8,12 @@
             <th>Date</th>
             <th>Time</th>
             <th>Amount</th>
+            <th>Type</th>
             <th>Location</th>
+            <th>Website</th>
             <th>Address</th>
             <th>Country</th>
-            <th>Type</th>
+            <th>Payment</th>
             <th>Comment</th>
             <th>Image</th>
             <th>Document</th>
@@ -21,13 +23,15 @@
             <td>{{ expense.date }}</td>
             <td>{{ expense.time }}</td>
             <td>{{ expense.amount }}€</td>
+            <td>{{ expense.location.type }}</td>
             <td>{{ expense.location.title }}</td>
-            <td>{{ expense.location.street }}, {{ expense.location.city }}</td>
+            <td>{% if expense.location.website %}{{ expense.location.website}}{% else %}None{% endif %}</td>
+            <td>{% if expense.location.address %}{{ expense.location.street }}, {{ expense.location.city }}{% else %}None{% endif %}</td>
             <td>{{ expense.location.country }}</td>
             <td>{{ expense.payment }}</td>
             <td>{% if expense.comment %}{{ expense.comment }}{% else %}None{% endif %}</td>
-            <td>{%  if expense.image %}<a href="{{ expense.image.url }}">Link</a>{% else %}None{%  endif %}</td>
-            <td>{%  if expense.document %}<a href="{{ expense.document.url }}">Link</a>{% else %}None{%  endif %}</td>
+            <td>{% if expense.image %}<a href="{{ expense.image.url }}">Link</a>{% else %}None{%  endif %}</td>
+            <td>{% if expense.document %}<a href="{{ expense.document.url }}">Link</a>{% else %}None{%  endif %}</td>
             <td>{{ expense.id }}</td>
         </tr>
     </table>

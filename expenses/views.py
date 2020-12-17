@@ -22,6 +22,11 @@ class ExpenseListView(LoginRequiredMixin, ListView):
     template_name = "expenses/expense_list.html"
     paginate_by = 100
 
+    # TODO extra_context = .. for static
+    #  https://www.valentinog.com/blog/get-context-data/ for dynamic!
+    #  from filters.py to have filtered table
+    #  https://django-tables2.readthedocs.io/en/latest/pages/filtering.html#filtering
+
     def get_queryset(self):
         return Expense.objects.filter(owner=self.request.user).all()
 

@@ -12,17 +12,23 @@ from expenses.utils import path_and_rename
 class Location(models.Model):
     # TODO https://pypi.org/project/django-address/
     #  if google api is okay :^)
-    title = models.CharField(max_length=50)
-    street = models.CharField(max_length=100)
-    city = models.CharField(max_length=100)
 
     # FIXME this is pretty bad, unless I would make enum which would need to be updated on trips ...
     COUNTRY = (
         ("LT", "Lithuania"),
         ("DE", "Germany"),
     )
-    country = models.CharField(max_length=2, choices=COUNTRY, default="LT")
 
+    TYPE = (
+        ("ONLINE", "Online"),
+        ("PHYSICAL", "Physical")
+    )
+
+    title = models.CharField(max_length=50)
+    type = models.CharField(max_length=20, choices=TYPE, default="PHYSICAL")
+    street = models.CharField(max_length=100, null=True, blank=True)
+    city = models.CharField(max_length=100, null=True, blank=True)
+    country = models.CharField(max_length=2, choices=COUNTRY, default="LT")
     website = models.URLField(null=True, blank=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -30,7 +36,7 @@ class Location(models.Model):
         return reverse("location-detail", args=[str(self.id)])
 
     def __str__(self):
-        return f"{self.title} [{self.street} - {self.city}, {self.country}]"
+        return f"{self.title} {self.type}"
 
 
 class Payment(models.Model):

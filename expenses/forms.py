@@ -31,8 +31,10 @@ class FileInput(forms.FileInput):
 class ExpenseCreateForm(forms.ModelForm):
     class Meta:
         model = Expense
-        exclude = ["owner"]
+        exclude = ("owner", )
         widgets = {"date": DateInput(), "time": TimeInput()}
+
+    # FIXME all users can see location and payment of other users!
 
 
 class LocationCreateForm(forms.ModelForm):
