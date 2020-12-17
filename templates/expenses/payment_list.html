@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Payment Types</h1>
+    {% if payment_list %}
+        <ul>
+            {% for payment in payment_list %}
+                <li>
+                    <a class="link-emoji" href="{% url 'payment-update' payment.id %}">🖋️</a>
+                    <a class="link-emoji" href="{% url 'payment-delete' payment.id %}">🗑️</a>
+                    <a href="{{ payment.get_absolute_url }}">{{ payment }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no payment types, go add some!</p>
+    {% endif %}
+
+    <!-- Pagination, needed for massive lists :^) -->
+        {% block pagination %}
+            {% if is_paginated %}
+                <div>
+                    <span>
+                        {% if page_obj.has_previous %}
+                            <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                        {% endif %}
+                    <span>
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+                        {% if page_obj.has_next %}
+                            <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                        {% endif %}
+                    </span>
+                </div>
+            {% endif %}
+        {% endblock %}
+
+{% endblock %}

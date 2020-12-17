@@ -101,3 +101,5 @@ GitHub.sublime-settings
 # PROJECT SPECIFIC FILES
 reports/
 .idea
+data/
+db.sqlite3

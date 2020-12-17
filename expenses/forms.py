@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.admin import widgets
 from django.forms import DateInput, DateTimeField, MultiWidget, TextInput
 
-from expenses.models import Expense
+from expenses.models import Expense, Location, Payment
 
 """
 For some reason Django is not smart enough to use HTML input types itself,
@@ -28,11 +28,20 @@ class FileInput(forms.FileInput):
     input_type = "file"
 
 
-
 class ExpenseCreateForm(forms.ModelForm):
     class Meta:
         model = Expense
         exclude = ["owner"]
         widgets = {"date": DateInput(), "time": TimeInput()}
-        # TODO when fields are sorted!
-        #  picture = ImageInput(), document = FileInput()
+
+
+class LocationCreateForm(forms.ModelForm):
+    class Meta:
+        model = Location
+        exclude = ["owner"]
+
+
+class PaymentCreateForm(forms.ModelForm):
+    class Meta:
+        model = Payment
+        exclude = ["owner"]

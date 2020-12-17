@@ -1,12 +1,18 @@
+import os
+from uuid import uuid4
+
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
+
+from expenses.utils import path_and_rename
 
 
 class Location(models.Model):
     # TODO https://pypi.org/project/django-address/
     #  if google api is okay :^)
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=50)
     street = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
 
@@ -39,14 +45,31 @@ class Payment(models.Model):
         return f"{self.title}"
 
 
-class Document(models.Model):
-    # TODO uuid, location, owner
-    pass
+# class Document(models.Model):
+#     document = models.FileField(upload_to="data/documents/")
+#     expense = models.ForeignKey("Expense", on_delete=models.SET_NULL, null=True)
+#
+#
+# class Picture(models.Model):
+#     image = models.ImageField(upload_to="data/images/")
+#     expense = models.ForeignKey("Expense", on_delete=models.SET_NULL, null=True)
+
+from django.utils.deconstruct import deconstructible
 
 
-class Picture(models.Model):
-    # TODO uuid, location, owner
-    pass
+@deconstructible
+class UploadToPathAndRename(object):
+    def __init__(self, path):
+        self.sub_path = path
+
+    def __call__(self, instance, filename):
+        ext = filename.split(".")[-1]
+        # get filename
+        if instance.pk:
+            filename = "{}.{}".format(instance.pk, ext)
+        else:
+            filename = "{}.{}".format(uuid4().hex, ext)
+        return os.path.join(self.sub_path, filename)
 
 
 class Expense(models.Model):
@@ -54,8 +77,12 @@ class Expense(models.Model):
     time = models.TimeField(null=True, blank=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2, help_text="Amount of € spent.")
     location = models.ForeignKey("Location", on_delete=models.SET_NULL, null=True)
-    # picture = models.ForeignKey("Picture", on_delete=models.SET_NULL, null=True, blank=True)
-    # document = models.ForeignKey("Document", on_delete=models.SET_NULL, null=True, blank=True)
+    document = models.FileField(
+        upload_to=UploadToPathAndRename("documents/"), blank=True, null=True
+    )
+    image = models.ImageField(
+        upload_to=UploadToPathAndRename("images/"), blank=True, null=True
+    )
     payment = models.ForeignKey("Payment", on_delete=models.SET_NULL, db_index=True, null=True)
     comment = models.TextField(null=True, blank=True, help_text="Additional notes...")
     owner = models.ForeignKey(User, on_delete=models.CASCADE)

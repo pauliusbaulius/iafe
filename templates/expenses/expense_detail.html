@@ -2,8 +2,35 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<h1>Expense</h1>
-<p>{{ expense }}</p>
-
+    <h1>EXPENSE:</h1>
+    <table class="expense-table">
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Amount</th>
+            <th>Location</th>
+            <th>Address</th>
+            <th>Country</th>
+            <th>Type</th>
+            <th>Comment</th>
+            <th>Image</th>
+            <th>Document</th>
+            <th>Id</th>
+        </tr>
+        <tr>
+            <td>{{ expense.date }}</td>
+            <td>{{ expense.time }}</td>
+            <td>{{ expense.amount }}€</td>
+            <td>{{ expense.location.title }}</td>
+            <td>{{ expense.location.street }}, {{ expense.location.city }}</td>
+            <td>{{ expense.location.country }}</td>
+            <td>{{ expense.payment }}</td>
+            <td>{% if expense.comment %}{{ expense.comment }}{% else %}None{% endif %}</td>
+            <td>{%  if expense.image %}<a href="{{ expense.image.url }}">Link</a>{% else %}None{%  endif %}</td>
+            <td>{%  if expense.document %}<a href="{{ expense.document.url }}">Link</a>{% else %}None{%  endif %}</td>
+            <td>{{ expense.id }}</td>
+        </tr>
+    </table>
+     <a class="link-emoji" href="{% url 'expense-update' expense.id %}">🖋️</a>
+    <a class="link-emoji" href="{% url 'expense-delete' expense.id %}">🗑️</a>
 {% endblock %}

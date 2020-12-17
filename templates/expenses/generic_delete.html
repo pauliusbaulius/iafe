@@ -4,12 +4,12 @@
 
 <h1>Delete?</h1>
 
-<p>Are you sure you want to delete the expense: {{ expense }}?</p>
+<p>Are you sure you want to delete the: {{ item }}?</p>
 
 <form action="" method="POST">
     {% csrf_token %}
     <input type="button" value="No!" onclick="history.back()">
-    <input type="submit" action="" value="Yes!" />
+    <input type="submit" value="Yes" />
 </form>
 
 {% endblock %}

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Document, Expense, Location, Payment, Picture
+from .models import Expense, Location, Payment
 
 
 @admin.register(Location)
@@ -21,9 +21,10 @@ class ExpenseAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {"fields": (("date", "time"), "amount", "location", "payment", "owner")}),
+        ("Media", {"fields": ("image", "document")}),
         ("Miscellaneous", {"fields": ("comment",)}),
     )
 
 
-admin.site.register(Document)
-admin.site.register(Picture)
+# admin.site.register(Document)
+# admin.site.register(Picture)

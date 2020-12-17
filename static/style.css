@@ -16,7 +16,15 @@ nav {
 
 }
 
-.link-emoji a {
+.link-emoji {
     /* Remove underline from emojis that are used as href */
     text-decoration: none;
 }
+
+.expense-table tr { display: block; float: left; }
+.expense-table th { display: block; border: 1px solid black; }
+.expense-table td { display: block; border: 1px solid black; }
+
+/* border-collapse */
+.expense-table tr>*:not(:first-child) { border-top: 0; }
+.expense-table tr:not(:first-child)>* { border-left:0; }

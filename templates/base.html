@@ -16,10 +16,16 @@
           <ul>
               <li><a href="{% url 'index' %}">Home</a></li>
               {% if user.is_authenticated %}
-                  <li>User: {{ user.get_username }}</li>
+                  <li><strong><a href="{% url 'logout' %}?next={{request.path}}">Logout</a></strong></li>
+                  <li>Logged in as: {{ user.get_username }}</li>
                   <!-- Links visible to logged-in users. -->
-                  <li><a href="{% url 'expenses-index' %}">Expenses</a></li>
-                  <li><a href="{% url 'logout' %}?next={{request.path}}">Logout</a></li>
+                  <li><a href="{% url 'expenses-index' %}">Expenses Dashboard</a></li>
+                  <li><a href="{% url 'expense-create' %}">Expenses Add</a></li>
+                  <li><a href="{% url 'expense-list' %}">Expenses List</a></li>
+                  <li><a href="{% url 'payment-create' %}">Payment Add</a></li>
+                  <li><a href="{% url 'payment-list' %}">Payment List</a></li>
+                  <li><a href="{% url 'location-create' %}">Location Add</a></li>
+                  <li><a href="{% url 'location-list' %}">Location List</a></li>
               {% else %}
                   <li><a href="{% url 'login' %}?next={{request.path}}">Login</a></li>
               {% endif %}
