@@ -58,6 +58,11 @@ class ExpenseUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "expenses/expense_form.html"
     success_url = reverse_lazy("expense-list")
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
+
 
 class ExpenseDeleteView(LoginRequiredMixin, DeleteView):
     model = Expense

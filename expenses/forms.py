@@ -16,6 +16,10 @@ https://stackoverflow.com/questions/3367091/whats-the-cleanest-simplest-to-get-r
 """
 
 
+class DateTimeInput(forms.DateTimeInput):
+    input_type = "datetime-local"
+
+
 class DateInput(forms.DateInput):
     input_type = "date"
 
@@ -31,13 +35,17 @@ class FileInput(forms.FileInput):
 class ExpenseCreateForm(forms.ModelForm):
     class Meta:
         model = Expense
-        exclude = ("owner", )
+        exclude = (
+            "owner",
+            "datetime_utc",
+        )
         widgets = {"date": DateInput(), "time": TimeInput()}
+        # widgets = {"datetime": DateTimeInput()}
 
     def __init__(self, *args, user, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['location'].queryset = user.location_set.all()
-        self.fields['payment'].queryset = user.payment_set.all()
+        self.fields["location"].queryset = user.location_set.all()
+        self.fields["payment"].queryset = user.payment_set.all()
 
 
 class LocationCreateForm(forms.ModelForm):

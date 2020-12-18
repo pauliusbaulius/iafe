@@ -103,3 +103,4 @@ reports/
 .idea
 data/
 db.sqlite3
+migrations/

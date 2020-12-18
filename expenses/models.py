@@ -1,6 +1,8 @@
+import datetime
 import os
 from uuid import uuid4
 
+import pytz
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
@@ -19,10 +21,7 @@ class Location(models.Model):
         ("DE", "Germany"),
     )
 
-    TYPE = (
-        ("ONLINE", "Online"),
-        ("PHYSICAL", "Physical")
-    )
+    TYPE = (("ONLINE", "Online"), ("PHYSICAL", "Physical"))
 
     title = models.CharField(max_length=50)
     type = models.CharField(max_length=20, choices=TYPE, default="PHYSICAL")
@@ -79,25 +78,39 @@ class UploadToPathAndRename(object):
 
 
 class Expense(models.Model):
+    TZ = (("UTC", "UTC"), ("Europe/Vilnius", "Europe/Vilnius"), ("Europe/Berlin", "Europe/Berlin"))
+
     date = models.DateField(db_index=True)
     time = models.TimeField(null=True, blank=True)
+    datetime_utc = models.DateTimeField(null=True, blank=True, db_index=True)
+    # TODO default should be last entry from db by the user!
+    timezone = models.CharField(max_length=20, choices=TZ, default="Europe/Vilnius")
     amount = models.DecimalField(max_digits=10, decimal_places=2, help_text="Amount of € spent.")
     location = models.ForeignKey("Location", on_delete=models.SET_NULL, null=True)
-    document = models.FileField(
-        upload_to=UploadToPathAndRename("documents/"), blank=True, null=True
-    )
-    image = models.ImageField(
-        upload_to=UploadToPathAndRename("images/"), blank=True, null=True
-    )
+    document = models.FileField(upload_to=UploadToPathAndRename("documents/"), blank=True, null=True)
+    image = models.ImageField(upload_to=UploadToPathAndRename("images/"), blank=True, null=True)
     payment = models.ForeignKey("Payment", on_delete=models.SET_NULL, db_index=True, null=True)
     comment = models.TextField(null=True, blank=True, help_text="Additional notes...")
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"[{self.date} {self.time}] {self.amount}€"
+        return f"[{self.date} {self.time} {self.timezone}][{self.datetime_utc}] {self.amount}€ in {self.location}"
 
     def get_absolute_url(self):
         return reverse("expense-detail", args=[str(self.id)])
+
+    def convert_to_utc(self):
+        user_tz = pytz.timezone(self.timezone)  # Get timezone of user from input
+        date = datetime.datetime(
+            year=self.date.year, month=self.date.month, day=self.date.day, hour=self.time.hour, minute=self.time.minute
+        )  # Ugliest way to create a datetime :^)
+        date = user_tz.localize(date)  # Convert it to users time aka replace +00:00 to their tz.
+        date = date.astimezone(pytz.utc)  # Convert cleaned and right datetime into utc.
+        self.datetime_utc = date  # Store utc datetime in db together with our localized datetime.
+
+    def save(self, *args, **kwargs):
+        self.convert_to_utc()
+        super().save(*args, **kwargs)
 
     class Meta:
         ordering = ["-date", "-time"]
