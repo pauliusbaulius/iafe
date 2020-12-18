@@ -2,6 +2,7 @@
 
 {% block content %}
     <h1>Payment Types</h1>
+    <form><button type="submit" formaction="{% url 'payment-create' %}">Add Payment</button></form>
     {% if payment_list %}
         <ul>
             {% for payment in payment_list %}

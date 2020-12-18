@@ -2,6 +2,7 @@
 
 {% block content %}
     <h1>Locations</h1>
+    <form><button type="submit" formaction="{% url 'location-create' %}">Add Location</button></form>
     {% if location_list %}
         <ul>
             {% for location in location_list %}

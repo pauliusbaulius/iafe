@@ -40,7 +40,6 @@ class ExpenseCreateForm(forms.ModelForm):
             "datetime_utc",
         )
         widgets = {"date": DateInput(), "time": TimeInput()}
-        # widgets = {"datetime": DateTimeInput()}
 
     def __init__(self, *args, user, **kwargs):
         super().__init__(*args, **kwargs)

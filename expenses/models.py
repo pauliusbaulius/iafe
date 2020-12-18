@@ -3,12 +3,10 @@ import os
 from uuid import uuid4
 
 import pytz
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
-
-from expenses.utils import path_and_rename
+from django.utils.deconstruct import deconstructible
 
 
 class Location(models.Model):
@@ -59,8 +57,6 @@ class Payment(models.Model):
 #     image = models.ImageField(upload_to="data/images/")
 #     expense = models.ForeignKey("Expense", on_delete=models.SET_NULL, null=True)
 
-from django.utils.deconstruct import deconstructible
-
 
 @deconstructible
 class UploadToPathAndRename(object):
@@ -94,7 +90,7 @@ class Expense(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"[{self.date} {self.time} {self.timezone}][{self.datetime_utc}] {self.amount}€ in {self.location}"
+        return f"[{self.date} {self.time} {self.timezone}] [{self.location.title}] [{self.amount}€] [{self.location.type}]"
 
     def get_absolute_url(self):
         return reverse("expense-detail", args=[str(self.id)])
