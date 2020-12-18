@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<form action="" method="post" enctype="multipart/form-data">
+<form class="expense-form" action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <table>
     {{ form.media }}

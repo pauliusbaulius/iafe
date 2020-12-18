@@ -17,6 +17,9 @@ class Location(models.Model):
     COUNTRY = (
         ("LT", "Lithuania"),
         ("DE", "Germany"),
+        ("US", "USA"),
+        ("PL", "Poland"),
+        ("FR", "France"),
     )
 
     TYPE = (("ONLINE", "Online"), ("PHYSICAL", "Physical"))
@@ -90,7 +93,9 @@ class Expense(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"[{self.date} {self.time} {self.timezone}] [{self.location.title}] [{self.amount}€] [{self.location.type}]"
+        return (
+            f"[{self.date} {self.time} {self.timezone}] [{self.location.title}] [{self.amount}€] [{self.location.type}]"
+        )
 
     def get_absolute_url(self):
         return reverse("expense-detail", args=[str(self.id)])

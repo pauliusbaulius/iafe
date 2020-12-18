@@ -4,7 +4,7 @@
     <h1>Locations</h1>
     <form><button type="submit" formaction="{% url 'location-create' %}">Add Location</button></form>
     {% if location_list %}
-        <ul>
+        <ul class="list-objects">
             {% for location in location_list %}
                 <li>
                     <a class="link-emoji" href="{% url 'location-update' location.id %}">🖋️</a>

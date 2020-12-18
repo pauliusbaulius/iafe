@@ -3,7 +3,7 @@
 {% block content %}
     <h1>Expenses</h1>
     {% if my_expense_list %}
-        <ul>
+        <ul class="list-objects">
             {% for expense in my_expense_list %}
                 <li>
                     <a class="link-emoji" href="{% url 'expense-update' expense.id %}">🖋️</a>

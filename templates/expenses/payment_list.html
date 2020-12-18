@@ -4,7 +4,7 @@
     <h1>Payment Types</h1>
     <form><button type="submit" formaction="{% url 'payment-create' %}">Add Payment</button></form>
     {% if payment_list %}
-        <ul>
+        <ul class="list-objects">
             {% for payment in payment_list %}
                 <li>
                     <a class="link-emoji" href="{% url 'payment-update' payment.id %}">🖋️</a>
