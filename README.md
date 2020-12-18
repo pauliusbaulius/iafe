@@ -1,7 +1,7 @@
 # IAFE
 **I Always Forget Everything**
 
-Application to log imporatant metadata of my existence. Expenses? Essential to track your finances, this makes it quick, which increases the probability of me using it daily. Journal? Nag me to log my mood and thoughts. Doing it on paper lasts a week. Clicking on happy/sad/angry emoji? Can do.
+Application to log imporatant metadata of my existence. Expenses? Essential to track your finances. This makes it quick, which increases the probability of me using it daily. Journal? Nag me to log my mood and thoughts. Doing it on paper lasts a week. Clicking on happy/sad/angry emoji? Can do.
 
 ### TECHNOLOGY
 
