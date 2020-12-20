@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Expenses Home :^)</h1>
-    <form><button type="submit" formaction="{% url 'expense-list' %}">All Expenses</button></form>
-    <form><button type="submit" formaction="{% url 'payment-list' %}">Payments</button></form>
-    <form><button type="submit" formaction="{% url 'location-list' %}">Locations</button></form>
-    <p># TODO nice chats</p>
+    <h1>IAFE.EXPENSES</h1>
+    <div class="ui-nav">
+        <form><button class="ui-button" type="submit" formaction="{% url 'expense-list' %}">All Expenses</button></form>
+        <form><button class="ui-button" type="submit" formaction="{% url 'payment-list' %}">Payments</button></form>
+        <form><button class="ui-button" type="submit" formaction="{% url 'location-list' %}">Locations</button></form>
+    </div>
+     <p># TODO nice chats</p>
 {% endblock %}

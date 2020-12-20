@@ -66,7 +66,8 @@ class ExpenseUpdateView(LoginRequiredMixin, UpdateView):
 
 class ExpenseDeleteView(LoginRequiredMixin, DeleteView):
     model = Expense
-    template_name = "expenses/expense_delete.html"
+    context_object_name = "item"
+    template_name = "expenses/generic_delete.html"
     success_url = reverse_lazy("expense-list")
 
 

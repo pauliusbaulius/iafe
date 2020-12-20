@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Payment Types</h1>
-    <form><button type="submit" formaction="{% url 'payment-create' %}">Add Payment</button></form>
+    <h1>IAFE.EXPENSES PAYMENTS</h1>
+    <form><button class="ui-button" type="submit" formaction="{% url 'payment-create' %}">Add Payment</button></form>
     {% if payment_list %}
         <ul class="list-objects">
             {% for payment in payment_list %}

@@ -2,14 +2,14 @@
 
 {% block content %}
 
-<h1>Delete?</h1>
+<h1>IAFE.GENERAL DELETE</h1>
 
-<p>Are you sure you want to delete the: {{ item }}?</p>
+<p>Are you sure you want to delete: {{ item }}?</p>
 
 <form action="" method="POST">
     {% csrf_token %}
-    <input type="button" value="No!" onclick="history.back()">
-    <input type="submit" value="Yes" />
+    <input class="ui-button" type="button" value="No!" onclick="history.back()">
+    <input class="ui-button ui-button-danger" type="submit" value="Yes" />
 </form>
 
 {% endblock %}

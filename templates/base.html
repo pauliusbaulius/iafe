@@ -9,25 +9,18 @@
   <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    <nav>
+    <nav class="ui-nav">
       {% block sidebar %}
-
-          {% if user.is_authenticated %}
-              <ul class="nav-user">
-                  <li>Logged in as: {{ user.get_username }}</li>
-                  <li><strong><a href="{% url 'logout' %}?next={{request.path}}">Logout</a></strong></li>
-              </ul>
-          {% endif %}
-          <ul>
-              <li><a href="{% url 'index' %}">Home</a></li>
-              {% if user.is_authenticated %}
-                  <!-- Links visible to logged-in users. -->
-                  <li><a href="{% url 'expenses-index' %}">Expenses</a></li>
-                  <li><form><button type="submit" formaction="{% url 'expense-create' %}">Add Expense</button></form></li>
-              {% else %}
-                  <li><a href="{% url 'login' %}?next={{request.path}}">Login</a></li>
-              {% endif %}
-          </ul>
+            <form><button class="ui-button" type="submit" formaction="{% url 'index' %}">Home</button></form>
+            {% if user.is_authenticated %}
+                <form><button class="ui-button" type="submit" formaction="{% url 'logout' %}?next={{request.path}}">Logout</button></form>
+            {% else %}
+                <form><button class="ui-button" type="submit" formaction="{% url 'login' %}?next={{request.path}}">Login</button></form>
+            {% endif %}
+            <form><button class="ui-button" type="submit" formaction="{% url 'expenses-index' %}">Expenses</button></form>
+            <form><button class="ui-button ui-button-cta" type="submit" formaction="{% url 'expense-create' %}">Expenses Add</button></form>
+            <form><button class="ui-button" type="submit" formaction="{% url 'index' %}">Journal</button></form>
+            <form><button class="ui-button" type="submit" formaction="{% url 'index' %}">Journal Add</button></form>
       {% endblock %}
     </nav>
 

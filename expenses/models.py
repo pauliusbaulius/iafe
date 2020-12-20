@@ -86,15 +86,15 @@ class Expense(models.Model):
     timezone = models.CharField(max_length=20, choices=TZ, default="Europe/Vilnius")
     amount = models.DecimalField(max_digits=10, decimal_places=2, help_text="Amount of € spent.")
     location = models.ForeignKey("Location", on_delete=models.SET_NULL, null=True)
+    payment = models.ForeignKey("Payment", on_delete=models.SET_NULL, db_index=True, null=True)
     document = models.FileField(upload_to=UploadToPathAndRename("documents/"), blank=True, null=True)
     image = models.ImageField(upload_to=UploadToPathAndRename("images/"), blank=True, null=True)
-    payment = models.ForeignKey("Payment", on_delete=models.SET_NULL, db_index=True, null=True)
     comment = models.TextField(null=True, blank=True, help_text="Additional notes...")
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return (
-            f"[{self.date} {self.time} {self.timezone}] [{self.location.title}] [{self.amount}€] [{self.location.type}]"
+            f"[{self.date} {self.time}] [{self.amount}€] [{self.location.title}]"
         )
 
     def get_absolute_url(self):
