@@ -22,7 +22,7 @@ class Location(models.Model):
         ("FR", "France"),
     )
 
-    TYPE = (("ONLINE", "Online"), ("PHYSICAL", "Physical"))
+    TYPE = (("Online", "Online"), ("Physical", "Physical"), ("Both", "Both"))
 
     title = models.CharField(max_length=50)
     type = models.CharField(max_length=20, choices=TYPE, default="PHYSICAL")
@@ -60,6 +60,11 @@ class Payment(models.Model):
 #     image = models.ImageField(upload_to="data/images/")
 #     expense = models.ForeignKey("Expense", on_delete=models.SET_NULL, null=True)
 
+class Label(models.Model):
+    label = models.CharField(max_length=50)
+    comment = models.TextField(null=True, blank=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
 
 @deconstructible
 class UploadToPathAndRename(object):
@@ -91,6 +96,8 @@ class Expense(models.Model):
     image = models.ImageField(upload_to=UploadToPathAndRename("images/"), blank=True, null=True)
     comment = models.TextField(null=True, blank=True, help_text="Additional notes...")
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    # TODO labels!
+    #labels = models.ManyToManyField(Label)
 
     def __str__(self):
         return (

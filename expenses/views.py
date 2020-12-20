@@ -10,16 +10,10 @@ from expenses.forms import (ExpenseCreateForm, LocationCreateForm,
 from expenses.models import Expense, Location, Payment
 
 
-@login_required
-def index(request):
-    context = {}
-    return render(request, "expenses/index.html", context=context)
-
-
 class ExpenseListView(LoginRequiredMixin, ListView):
     model = Expense
     context_object_name = "my_expense_list"
-    template_name = "expenses/expense_list.html"
+    template_name = "expenses/index.html"
     paginate_by = 100
 
     # TODO extra_context = .. for static

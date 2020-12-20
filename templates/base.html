@@ -12,15 +12,14 @@
     <nav class="ui-nav">
       {% block sidebar %}
             <form><button class="ui-button" type="submit" formaction="{% url 'index' %}">Home</button></form>
-            {% if user.is_authenticated %}
-                <form><button class="ui-button" type="submit" formaction="{% url 'logout' %}?next={{request.path}}">Logout</button></form>
-            {% else %}
-                <form><button class="ui-button" type="submit" formaction="{% url 'login' %}?next={{request.path}}">Login</button></form>
-            {% endif %}
             <form><button class="ui-button" type="submit" formaction="{% url 'expenses-index' %}">Expenses</button></form>
             <form><button class="ui-button ui-button-cta" type="submit" formaction="{% url 'expense-create' %}">Expenses Add</button></form>
             <form><button class="ui-button" type="submit" formaction="{% url 'index' %}">Journal</button></form>
             <form><button class="ui-button" type="submit" formaction="{% url 'index' %}">Journal Add</button></form>
+            {% if user.is_authenticated %}
+            {% else %}
+                <form><button class="ui-button" type="submit" formaction="{% url 'login' %}?next={{request.path}}">Login</button></form>
+            {% endif %}
       {% endblock %}
     </nav>
 

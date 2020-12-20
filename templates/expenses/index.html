@@ -3,9 +3,43 @@
 {% block content %}
     <h1>IAFE.EXPENSES</h1>
     <div class="ui-nav">
-        <form><button class="ui-button" type="submit" formaction="{% url 'expense-list' %}">All Expenses</button></form>
         <form><button class="ui-button" type="submit" formaction="{% url 'payment-list' %}">Payments</button></form>
         <form><button class="ui-button" type="submit" formaction="{% url 'location-list' %}">Locations</button></form>
     </div>
      <p># TODO nice chats</p>
+
+    <h1>IAFE.EXPENSES ALL</h1>
+    {% if my_expense_list %}
+        <ul class="list-objects">
+            {% for expense in my_expense_list %}
+                <li>
+                    <a class="link-emoji" href="{% url 'expense-update' expense.id %}">🖋️</a>
+                    <a class="link-emoji" href="{% url 'expense-delete' expense.id %}">🗑️</a>
+                    <a href="{{ expense.get_absolute_url }}">{{ expense }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no expenses, go add some!</p>
+    {% endif %}
+
+    <!-- Pagination, needed for massive lists :^) -->
+        {% block pagination %}
+            {% if is_paginated %}
+                <div>
+                    <span>
+                        {% if page_obj.has_previous %}
+                            <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">PREVIOUS</a>
+                        {% endif %}
+                    <span>
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+                        {% if page_obj.has_next %}
+                            <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">NEXT</a>
+                        {% endif %}
+                    </span>
+                </div>
+            {% endif %}
+        {% endblock %}
+
 {% endblock %}

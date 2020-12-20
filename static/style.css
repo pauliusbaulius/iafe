@@ -6,7 +6,22 @@ body {
     max-width: 700px;
     font-size: 16px;
     line-height: 1.3;
+    margin: 0 auto;
+    padding: 10px;
+
+    display: grid;
+    grid-template-areas:
+    "nav"
+    "content";
+
 }
+
+nav {
+    padding: 10px 0;
+    position: sticky;
+}
+
+
 
 nav ul li a{
     /* Remove underlines and typical hyperlink stuff from nav */
@@ -21,10 +36,6 @@ nav ul {
 
 .nav-user {
     background-color: darkseagreen;
-}
-
-.content {
-
 }
 
 .link-emoji {
@@ -48,11 +59,9 @@ nav ul {
 
 }
 
-
-
 .content {
-    padding: 10px;
-    border: 3px solid black;
+    grid-area: content;
+    margin-top: 20px;
 }
 
 .form-input {
@@ -79,24 +88,27 @@ nav ul {
     padding-top: 10px;
 }
 
+:root {
+    --fs: 13px;
+    --box-size: 100px;
+}
+
 .ui-nav {
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    padding: 1vh 0;
+    grid-template-columns: repeat(auto-fill, minmax(var(--box-size), 1fr));
 }
-
-
 
 .ui-button {
     background-color: black;
     color: white;
     border: none;
-    width: 100px;
-    height: 100px;
+    width: var(--box-size);
+    height: var(--box-size);
     font-weight: bold;
     text-transform: uppercase;
     text-align: center;
+    font-size: var(--fs);
 }
 
 .ui-button-danger {
@@ -104,10 +116,35 @@ nav ul {
 }
 
 .ui-button-cta {
-    background-color: orange;
+    background-color: red;
 }
 
 form {
     display: grid;
+}
 
+/* MOBILE PHONE */
+@media (max-width: 700px) {
+
+    :root {
+        --box-size: 60px;
+        --fs: 8px;
+    }
+
+    .content {
+        margin-top: 0;
+    }
+
+    body {
+        display: grid;
+        grid-template-areas:
+        "content"
+        "nav";
+
+    }
+
+    nav {
+        background-color: white;
+        bottom: 0;
+    }
 }
