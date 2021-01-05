@@ -6,8 +6,8 @@ from django.views.generic import (CreateView, DeleteView, DetailView, FormView,
                                   ListView, UpdateView)
 
 from expenses.forms import (ExpenseCreateForm, LocationCreateForm,
-                            PaymentCreateForm)
-from expenses.models import Expense, Location, Payment
+                            PaymentCreateForm, LabelCreateForm)
+from expenses.models import Expense, Location, Payment, Label
 
 
 class ExpenseListView(LoginRequiredMixin, ListView):
@@ -34,7 +34,7 @@ class ExpenseCreateView(LoginRequiredMixin, CreateView):
     model = Expense
     form_class = ExpenseCreateForm
     template_name = "expenses/expense_form.html"
-    success_url = reverse_lazy("expense-list")
+    success_url = reverse_lazy("expenses-index")
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -50,7 +50,7 @@ class ExpenseUpdateView(LoginRequiredMixin, UpdateView):
     model = Expense
     form_class = ExpenseCreateForm
     template_name = "expenses/expense_form.html"
-    success_url = reverse_lazy("expense-list")
+    success_url = reverse_lazy("expenses-index")
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -62,7 +62,7 @@ class ExpenseDeleteView(LoginRequiredMixin, DeleteView):
     model = Expense
     context_object_name = "item"
     template_name = "expenses/generic_delete.html"
-    success_url = reverse_lazy("expense-list")
+    success_url = reverse_lazy("expenses-index")
 
 
 class LocationListView(LoginRequiredMixin, ListView):
@@ -145,3 +145,44 @@ class PaymentDeleteView(LoginRequiredMixin, DeleteView):
     context_object_name = "item"
     template_name = "expenses/generic_delete.html"
     success_url = reverse_lazy("payment-list")
+
+
+class LabelDetailView(LoginRequiredMixin, DeleteView):
+    model = Label
+    context_object_name = "item"
+    template_name = "expenses/generic_detail.html"
+
+
+class LabelCreateView(LoginRequiredMixin, CreateView):
+    model = Label
+    form_class = LabelCreateForm
+    template_name = "expenses/generic_form.html"
+    success_url = reverse_lazy("label-list")
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super(LabelCreateView, self).form_valid(form)
+
+
+class LabelUpdateView(LoginRequiredMixin, UpdateView):
+    model = Label
+    form_class = LabelCreateForm
+    template_name = "expenses/generic_form.html"
+    success_url = reverse_lazy("label-list")
+
+
+class LabelDeleteView(LoginRequiredMixin, DeleteView):
+    model = Label
+    context_object_name = "item"
+    template_name = "expenses/generic_delete.html"
+    success_url = reverse_lazy("label-list")
+
+
+class LabelListView(LoginRequiredMixin, ListView):
+    model = Label
+    context_object_name = "label_list"
+    template_name = "expenses/label_list.html"
+    paginate_by = 100
+
+    def get_queryset(self):
+        return Label.objects.filter(owner=self.request.user).all()
