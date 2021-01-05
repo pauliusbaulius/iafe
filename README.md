@@ -1,11 +1,6 @@
 # IAFE
 **I Always Forget Everything**
 
-Application to log imporatant metadata of my existence. Expenses? Essential to track your finances. This makes it quick, which increases the probability of me using it daily. Journal? Nag me to log my mood and thoughts. Doing it on paper lasts a week. Clicking on happy/sad/angry emoji? Can do.
-
-### TECHNOLOGY
-
-
 ## IAFE.EXPENSES
 Track your expenses in a simple way. I basically made 90s looking Excel VBA-whatever to log your expenses on the fly.
 What is the purpose of such application when countless other, 1000x better projects exist? 
@@ -37,15 +32,37 @@ Coming soon...
 2. Change `ALLOWED_HOSTS` LAN address to your ipv4 address. Exposes IAFE to LAN, allows testing on other devices or just running it locally as production :^)
 2. `make run`
 
-### DOCKER
-1. Someone pls make docker-config.yml with proper permissions.
-2. `docker-compose up --build -d`
+
+### MANUAL PRODUCTION
+1. TODO pipenv things with stuff like `pipenv run make run`
+1. If you want to run it as production, move settings_dev.py to settings.py in website/. Do not forget to generate a secure key and change domain. Also migrate and create superuser...
+
+2. You also need to configure NGINX as reverse proxy and also handle static files.
+Do not forget to change server_name, proxy_set_header and alias. Then you should setup https. Easiest way is to use certbot for nginx. You can install it with `sudo pip3 install certbot` to have it globally. Launch it as `sudo certbot --nginx` and follow the steps given by certbot itself.
+Example configuration below
+    ```nginx
+    server {
+    
+            server_name iafe.example.org www.iafe.example.org;
+            location / {
+                    proxy_pass http://localhost:8000;
+                    proxy_set_header Host iafe.example.org;
+                    proxy_set_header X-FORWARDED-PROTO https;
+            }
+    
+            location /static {
+                autoindex on;
+                alias <your-path>/iafe/static/;
+            }
+    }
+    ```
+1. Do not forget to backup your database frequently!
 
 ## ROADMAP FEATURES
 - [ ] merge scrappers from lil_spy into journal application, see daily stats from Firefox, Chromium, Discord, LastFM and etc.
 - [ ] docker-compose and Dockerfile for app releases.
-- [ ] map to see red points where you spent cash
+- [ ] map to see red points where you spent cash -> django mapbox
 - [ ] survey creator for custom journal/survey which you can fill out daily
-- [ ] email reminder to fill out journal
-- [ ] nginx reverse proxy for production
-- [ ] migrate to postgre
+- [x] nginx reverse proxy for production
+- [ ] cronjob example for db/staticfiles backups to b2
+- [ ] improve makefile to handle complete setup for production!

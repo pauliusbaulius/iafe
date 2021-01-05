@@ -1,47 +1,49 @@
+/*
+    GLOBAL VARIABLES FOR "RESPONSIVE" DESIGN
+ */
+
+:root {
+    --fontsize: 13px;
+    --box-size: 100px;
+}
+
+/*
+GENERAL RULES & LAYOUT
+ */
+
 * {
     font-family: monospace;
 }
 
-body {
-    max-width: 700px;
+html {
+    padding: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+
+    /* Font options. */
     font-size: 16px;
     line-height: 1.3;
-    margin: 0 auto;
-    padding: 10px;
+}
 
+body {
     display: grid;
     grid-template-areas:
     "nav"
     "content";
-
 }
 
 nav {
-    padding: 10px 0;
-    position: sticky;
+    position: sticky; /* Always visible. */
+    padding: 10px 0; /* Add a bit of padding to not touch browser edges on mobile and scroll, since sticky! */
 }
 
-
-
-nav ul li a{
-    /* Remove underlines and typical hyperlink stuff from nav */
-    text-decoration: none;
-    color: black;
+.content {
+    grid-area: content;
 }
 
-nav ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-.nav-user {
-    background-color: darkseagreen;
-}
-
-.link-emoji {
-    /* Remove underline from emojis that are used as href */
-    text-decoration: none;
-}
+/*
+    OBJECT DISPLAY STYLING
+ */
 
 .expense-table tr { display: block; float: left; }
 .expense-table th { display: block; border: 1px solid black; }
@@ -51,23 +53,30 @@ nav ul {
 .expense-table tr>*:not(:first-child) { border-top: 0; }
 .expense-table tr:not(:first-child)>* { border-left:0; }
 
-
+/*
+    LIST STYLING
+ */
 
 .list-objects {
+    /* Style for model instance listing.. */
     list-style: none;
     padding-left: 0;
-
 }
 
-.content {
-    grid-area: content;
-    margin-top: 20px;
+.link-emoji {
+    text-decoration: none; /* Remove underline from emojis that are used as href */
+}
+
+/*
+    FORM STYLING
+ */
+
+form {
+    display: grid;
 }
 
 .form-input {
-
     text-align: center;
-
 }
 
 .form-input input {
@@ -88,10 +97,14 @@ nav ul {
     padding-top: 10px;
 }
 
-:root {
-    --fs: 13px;
-    --box-size: 100px;
+.form-input li {
+    list-style: none;
+    text-align: left;
 }
+
+/*
+    VERY INDUSTRIAL DIZAIN ELEMENTS
+ */
 
 .ui-nav {
     display: grid;
@@ -108,7 +121,7 @@ nav ul {
     font-weight: bold;
     text-transform: uppercase;
     text-align: center;
-    font-size: var(--fs);
+    font-size: var(--fontsize);
 }
 
 .ui-button-danger {
@@ -119,17 +132,18 @@ nav ul {
     background-color: red;
 }
 
-form {
-    display: grid;
-}
-
-/* MOBILE PHONE */
+/*
+    MOBILE FIRST DESIGN
+    aifone is the primary means of expense logging, since you do not carry your thinkpad around ;^)
+ */
 @media (max-width: 700px) {
 
     :root {
         --box-size: 60px;
-        --fs: 8px;
+        --fontsize: 8px;
     }
+
+    html,body { height:100%; } /* This pushes navbar to the bottom of the screen! */
 
     .content {
         margin-top: 0;
@@ -137,6 +151,7 @@ form {
 
     body {
         display: grid;
+        grid-auto-rows: 10fr 1fr;
         grid-template-areas:
         "content"
         "nav";
@@ -145,6 +160,7 @@ form {
 
     nav {
         background-color: white;
+        position: sticky;
         bottom: 0;
     }
 }

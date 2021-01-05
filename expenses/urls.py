@@ -19,4 +19,9 @@ urlpatterns = [
     path("payment/create", views.PaymentCreateView.as_view(), name="payment-create"),
     path("payment/<int:pk>/update", views.PaymentUpdateView.as_view(), name="payment-update"),
     path("payment/<int:pk>/delete", views.PaymentDeleteView.as_view(), name="payment-delete"),
+    path("label/all", views.LabelListView.as_view(), name="label-list"),
+    path("label/<int:pk>", views.LabelDetailView.as_view(), name="label-detail"),
+    path("label/create", views.LabelCreateView.as_view(), name="label-create"),
+    path("label/<int:pk>/update", views.LabelUpdateView.as_view(), name="label-update"),
+    path("label/<int:pk>/delete", views.LabelDeleteView.as_view(), name="label-delete"),
 ]

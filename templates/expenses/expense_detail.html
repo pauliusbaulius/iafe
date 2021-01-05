@@ -17,6 +17,7 @@
             <th>Comment</th>
             <th>Image</th>
             <th>Document</th>
+            <th>Labels</th>
             <th>Id</th>
         </tr>
         <tr>
@@ -32,6 +33,7 @@
             <td>{% if expense.comment %}{{ expense.comment }}{% else %}None{% endif %}</td>
             <td>{% if expense.image %}<a href="{{ expense.image.url }}">Link</a>{% else %}None{%  endif %}</td>
             <td>{% if expense.document %}<a href="{{ expense.document.url }}">Link</a>{% else %}None{%  endif %}</td>
+            <td>{% if expense.labels %}{{ expense.labels.all }}{% else %}None{% endif %}</td>
             <td>{{ expense.id }}</td>
         </tr>
     </table>

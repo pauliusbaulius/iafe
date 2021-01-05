@@ -104,3 +104,4 @@ reports/
 data/
 db.sqlite3
 migrations/
+.secrets

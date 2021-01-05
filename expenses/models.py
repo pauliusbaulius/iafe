@@ -60,10 +60,17 @@ class Payment(models.Model):
 #     image = models.ImageField(upload_to="data/images/")
 #     expense = models.ForeignKey("Expense", on_delete=models.SET_NULL, null=True)
 
+
 class Label(models.Model):
     label = models.CharField(max_length=50)
-    comment = models.TextField(null=True, blank=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.label
+
+    def get_absolute_url(self):
+        return reverse("label-detail", args=[str(self.id)])
+
 
 
 @deconstructible
@@ -96,13 +103,10 @@ class Expense(models.Model):
     image = models.ImageField(upload_to=UploadToPathAndRename("images/"), blank=True, null=True)
     comment = models.TextField(null=True, blank=True, help_text="Additional notes...")
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    # TODO labels!
-    #labels = models.ManyToManyField(Label)
+    labels = models.ManyToManyField(Label)
 
     def __str__(self):
-        return (
-            f"[{self.date} {self.time}] [{self.amount}€] [{self.location.title}]"
-        )
+        return f"[{self.date} {self.time}] [{self.amount}€] [{self.location.title}] [{self.labels.all()}]"
 
     def get_absolute_url(self):
         return reverse("expense-detail", args=[str(self.id)])
