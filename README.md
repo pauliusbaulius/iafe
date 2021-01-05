@@ -37,9 +37,13 @@ Coming soon...
 2. Change `ALLOWED_HOSTS` LAN address to your ipv4 address. Exposes IAFE to LAN, allows testing on other devices or just running it locally as production :^)
 2. `make run`
 
+If you want to run it as production, move settings_dev.py to settings.py in website/. Do not forget to generate a secure key and change domain. Also migrate and create superuser...
+
 ### DOCKER
 1. Someone pls make docker-config.yml with proper permissions.
 2. `docker-compose up --build -d`
+
+
 
 ## ROADMAP FEATURES
 - [ ] merge scrappers from lil_spy into journal application, see daily stats from Firefox, Chromium, Discord, LastFM and etc.
