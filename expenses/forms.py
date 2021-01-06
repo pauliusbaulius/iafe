@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.admin import widgets
 from django.forms import DateInput, DateTimeField, MultiWidget, TextInput
 
-from expenses.models import Expense, Location, Payment, Label
+from expenses.models import Expense, Label, Location, Payment
 
 """
 For some reason Django is not smart enough to use HTML input types itself,
@@ -39,7 +39,11 @@ class ExpenseCreateForm(forms.ModelForm):
             "owner",
             "datetime_utc",
         )
-        widgets = {"date": DateInput(), "time": TimeInput(), "labels": forms.CheckboxSelectMultiple()}
+        widgets = {
+            "date": DateInput(),
+            "time": TimeInput(),
+            "labels": forms.CheckboxSelectMultiple(),
+        }
 
     def __init__(self, *args, user, **kwargs):
         super().__init__(*args, **kwargs)

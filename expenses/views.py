@@ -5,9 +5,9 @@ from django.urls import reverse_lazy
 from django.views.generic import (CreateView, DeleteView, DetailView, FormView,
                                   ListView, UpdateView)
 
-from expenses.forms import (ExpenseCreateForm, LocationCreateForm,
-                            PaymentCreateForm, LabelCreateForm)
-from expenses.models import Expense, Location, Payment, Label
+from expenses.forms import (ExpenseCreateForm, LabelCreateForm,
+                            LocationCreateForm, PaymentCreateForm)
+from expenses.models import Expense, Label, Location, Payment
 
 
 class ExpenseListView(LoginRequiredMixin, ListView):

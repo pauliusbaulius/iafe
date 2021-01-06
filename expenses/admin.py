@@ -16,11 +16,22 @@ class PaymentAdmin(admin.ModelAdmin):
 @admin.register(Expense)
 class ExpenseAdmin(admin.ModelAdmin):
 
-    list_display = ("date", "time", "amount", "location", "payment", "owner", "datetime_utc")
+    list_display = (
+        "date",
+        "time",
+        "amount",
+        "location",
+        "payment",
+        "owner",
+        "datetime_utc",
+    )
     list_filter = ("date", "amount", "location", "payment", "owner")
 
     fieldsets = (
-        (None, {"fields": (("date", "time"), "amount", "location", "payment", "owner")}),
+        (
+            None,
+            {"fields": (("date", "time"), "amount", "location", "payment", "owner")},
+        ),
         ("Media", {"fields": ("image", "document")}),
         ("Miscellaneous", {"fields": ("comment",)}),
     )
