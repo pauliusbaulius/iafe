@@ -4,18 +4,21 @@
 <head>
   {% block title %}<title>IAFE</title>{% endblock %}
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    {% load static %}
   <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.png' %}"/>
+    <link rel="apple-touch-icon" href="{% static 'apple-touch-icon.png' %}">
+
+
 </head>
 <body>
     <nav class="ui-nav">
       {% block sidebar %}
             <form><button class="ui-button" type="submit" formaction="{% url 'index' %}">Home</button></form>
             <form><button class="ui-button" type="submit" formaction="{% url 'expenses-index' %}">Expenses</button></form>
-            <form><button class="ui-button ui-button-cta" type="submit" formaction="{% url 'expense-create' %}">Expenses Add</button></form>
-            <form><button class="ui-button" type="submit" formaction="{% url 'index' %}">#TODO</button></form>
-            <form><button class="ui-button" type="submit" formaction="{% url 'index' %}">#TODO</button></form>
+            <form><button class="ui-button" type="submit" formaction="{% url 'index' %}">#Spyware</button></form>
+            <form><button class="ui-button" type="submit" formaction="{% url 'index' %}">#Journal</button></form>
             {% if user.is_authenticated %}
             {% else %}
                 <form><button class="ui-button" type="submit" formaction="{% url 'login' %}?next={{request.path}}">Login</button></form>
