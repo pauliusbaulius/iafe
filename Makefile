@@ -10,7 +10,7 @@ run:
 
 lint:
 	@echo "\nBLACK"
-	@black website/ expenses/ --config pyproject.toml
+	@black website/ expenses/
 	@echo "\nISORT"
 	@isort website/ expenses/
 	@echo "\nFLAKE8"
