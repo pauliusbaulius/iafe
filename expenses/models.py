@@ -26,10 +26,10 @@ class Location(models.Model):
 
     title = models.CharField(max_length=50)
     type = models.CharField(max_length=20, choices=TYPE, default="PHYSICAL")
-    street = models.CharField(max_length=100, null=True, blank=True)
-    city = models.CharField(max_length=100, null=True, blank=True)
+    street = models.CharField(max_length=100, default="", blank=True)
+    city = models.CharField(max_length=100, default="", blank=True)
     country = models.CharField(max_length=2, choices=COUNTRY, default="LT")
-    website = models.URLField(null=True, blank=True)
+    website = models.URLField(default="", blank=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
@@ -41,7 +41,7 @@ class Location(models.Model):
 
 class Payment(models.Model):
     title = models.CharField(max_length=100)
-    comment = models.TextField(blank=True, null=True)
+    comment = models.TextField(blank=True, default="")
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
@@ -97,11 +97,15 @@ class Expense(models.Model):
     # TODO default should be last entry from db by the user!
     timezone = models.CharField(max_length=20, choices=TZ, default="Europe/Vilnius")
     amount = models.DecimalField(max_digits=10, decimal_places=2, help_text="Amount of € spent.")
-    location = models.ForeignKey("Location", on_delete=models.SET_NULL, null=True)
-    payment = models.ForeignKey("Payment", on_delete=models.SET_NULL, db_index=True, null=True)
+    location = models.ForeignKey(
+    "Location", on_delete=models.SET_NULL, null=True, blank=True
+)
+    payment = models.ForeignKey(
+    "Payment", on_delete=models.SET_NULL, db_index=True, null=True, blank=True
+)
     document = models.FileField(upload_to=UploadToPathAndRename("documents/"), blank=True, null=True)
     image = models.ImageField(upload_to=UploadToPathAndRename("images/"), blank=True, null=True)
-    comment = models.TextField(null=True, blank=True, help_text="Additional notes...")
+    comment = models.TextField(default="", blank=True, help_text="Additional notes...")
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     labels = models.ManyToManyField(Label)
 
