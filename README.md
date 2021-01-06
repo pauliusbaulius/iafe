@@ -1,68 +1,67 @@
-# IAFE
-**I Always Forget Everything**
+# I ALWAYS FORGET EVERYTHING
+application bundle to manage my **adult** life. most of us know that budgeting and tracking expenses helps to manage €€€, but not many do it. **iafe.expenses** allows easy and consistent tracking after you set your payments/locations/labels up. 
+
+future extensions:
+
+**iafe.journal** will allow you to create daily notes and upload files that you want to remember. one textarea and unlimited file uploads per day. reminders are sent to your email. see what you did a year ago and track your boring existence via buggy django project. 
+
+**iafe.spyware** will collect data from various 3rd party services like last.fm, wakatime, telegram, discord, activitywatch and even your firefox/chromium browser to collect that sweet data. if it is generated, why not scrape and store it for yourself? looking at graphs and looking up your browser history seems sane. many of the scrapers are already created in my previous attempts at data collection from data collection services. stay tuned.
 
 ## IAFE.EXPENSES
-Track your expenses in a simple way. I basically made 90s looking Excel VBA-whatever to log your expenses on the fly.
-What is the purpose of such application when countless other, 1000x better projects exist? 
-I can open a bookmark on my iConsumer smartphone, spend 30s adding info and snap a picture of that spicy toilet paper with detailed log of my purchases before throwing it away. That data will be stored on my personal server, will be analyzed with my queries and stored in my basement.
+track your expenses in a simple way. i basically made 90s looking excel-vba-whatever to log your expenses on the fly.
+you can open a bookmark on i-consumer smartphone, spend 30s adding info and snap a picture of that spicy toilet paper with detailed log of your purchases before throwing it away. all that useful data will be stored on your personal server. 
 
-### FEATURES
-1. You own your data.
-2. Possibility to do some personal analytics.
-3. Shame yourself for wasting cash.
-4. Upload your PDF or take a picture of the Kassenbohn for later OCR/whatever.
+how dows it compare to other services?
+### ADVANTAGES
+1. you own your data.
+2. possibility to do some personal analytics with your 🔥hardcoded sql queries🔥.
+3. shame yourself for wasting cash.
+4. upload your pdf or take a picture of the kassenbohn for later ocr/whatever parsing.
 
-### ANTI-FEATURES
+### DISADVANTAGES
 1. € is the only currency.
-2. Want a new country? Need to make a pull request. Not in Eurozone? Sad emoji.
-3. One image and document per expense. (Should be fixed in the future.)
+2. hardcoded countries and timezones.
+3. have to add payment/location/label before you can use it in expense... inline-formset is a new field for me.
 
-## IAFE.JOURNAL
-Coming soon...
 
-### FEATURES
-1. Will beat creating today.txt or giving up your depression log to Goomazonbook dudes.
-
-### ANTI-FEATURES
-1. Does not exist yet.
+---
 
 ## INSTALL
 ### MANUAL DEV
+make sure you have `pipenv` installed.
 1. `make setup`
-2. Change `ALLOWED_HOSTS` LAN address to your ipv4 address. Exposes IAFE to LAN, allows testing on other devices or just running it locally as production :^)
-2. `make run`
+2. change `ALLOWED_HOSTS` lan address to your ipv4 address. this exposes it to lan and you can test iafe on your i-consumer smartphone.
 
 
 ### MANUAL PRODUCTION
-1. TODO pipenv things with stuff like `pipenv run make run`
-1. If you want to run it as production, move settings_dev.py to settings.py in website/. Do not forget to generate a secure key and change domain. Also migrate and create superuser...
+1. todo pipenv things with stuff like `pipenv run make run`
+1. if you want to run it as production, rename `settings_dev.py` to `settings.py` in website/. **do not forget to generate a secure key, change domain to yours, makemigrations/migrate, create superuser...**
 
-2. You also need to configure NGINX as reverse proxy and also handle static files.
-Do not forget to change server_name, proxy_set_header and alias. Then you should setup https. Easiest way is to use certbot for nginx. You can install it with `sudo pip3 install certbot` to have it globally. Launch it as `sudo certbot --nginx` and follow the steps given by certbot itself.
-Example configuration below
+2. configure nginx as reverse proxy and also handle static files.
+do not forget to change `server_name`, `proxy_set_header` and `alias`. then you should setup https. the easiest way is to use certbot for nginx. you can install it with `sudo pip3 install certbot` to have it globally. launch it as `sudo certbot --nginx` and follow the steps given by certbot itself.
+example configuration below
     ```nginx
     server {
     
+            # change me
             server_name iafe.example.org www.iafe.example.org;
             location / {
                     proxy_pass http://localhost:8000;
+                    # change me
                     proxy_set_header Host iafe.example.org;
                     proxy_set_header X-FORWARDED-PROTO https;
             }
     
             location /static {
                 autoindex on;
+                # change me
                 alias <your-path>/iafe/static/;
             }
     }
     ```
-1. Do not forget to backup your database frequently!
+1. *do not forget to back up your database frequently!*
 
-## ROADMAP FEATURES
-- [ ] merge scrappers from lil_spy into journal application, see daily stats from Firefox, Chromium, Discord, LastFM and etc.
-- [ ] docker-compose and Dockerfile for app releases.
-- [ ] map to see red points where you spent cash -> django mapbox
-- [ ] survey creator for custom journal/survey which you can fill out daily
-- [x] nginx reverse proxy for production
-- [ ] cronjob example for db/staticfiles backups to b2
-- [ ] improve makefile to handle complete setup for production!
+---
+
+## TODO
+check out [todo](todo) for *comming soon tm* features 🥰
