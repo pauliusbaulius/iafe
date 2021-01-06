@@ -13,6 +13,10 @@ TODO:
     FEATURES:
     - export csv of all expenses
     - google-api for locations and show map of all points where expenses were spent with heatmap or smth
+    - map to see red points where you spent cash -> django mapbox
+    - survey creator for custom journal/survey which you can fill out daily
+    - cronjob example for db/staticfiles backups to b2
+    - improve makefile to handle complete setup for production!
 
 DONE:
     IMPORTANT:
@@ -20,4 +24,5 @@ DONE:
     2020-12-06 - add favicon/touch icon to iafe
     2020-12-06 - fix iphone zoom on input fields which is annoying!!!!
     2020-12-05 - add labels and their update/delete/list views and forms.
+    2020-12-05 - nginx reverse proxy for production
     FEATURES:
