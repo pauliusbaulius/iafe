@@ -1,0 +1,23 @@
+tldr: todos are either important or features, which are less important and can wait :^)
+      when done, move to done. add date to track churn, burn, whatever /s
+
+TODO:
+    IMPORTANT:
+    - inline form to add multiple pics/docs
+    - possible to create locations, labels etc from expense add? something with inline-form(set) not sure.
+    - sort labels/payments/location in alphabetical order everywhere
+    - chart.js for charts!
+    - start journal which wants a pic, textarea, any file. one per day, edit how many times you want.
+    - spyware app of lastfm, activitywatch, iphone location, etc to SPYWARE
+
+    FEATURES:
+    - export csv of all expenses
+    - google-api for locations and show map of all points where expenses were spent with heatmap or smth
+
+DONE:
+    IMPORTANT:
+    2020-12-06 - create paint.exe logo for favicon and branding xd
+    2020-12-06 - add favicon/touch icon to iafe
+    2020-12-06 - fix iphone zoom on input fields which is annoying!!!!
+    2020-12-05 - add labels and their update/delete/list views and forms.
+    FEATURES:
