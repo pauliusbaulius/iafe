@@ -1,4 +1,6 @@
 # I ALWAYS FORGET EVERYTHING
+![iafe](iafe.png)
+
 application bundle to manage my **adult** life. most of us know that budgeting and tracking expenses helps to manage €€€, but not many do it. **iafe.expenses** allows easy and consistent tracking after you set your payments/locations/labels up. 
 
 future extensions:
