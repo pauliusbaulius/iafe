@@ -3,13 +3,13 @@
 {% block content %}
     <h1>IAFE.EXPENSES</h1>
     <div class="ui-nav">
+        <form><button class="ui-button ui-button-cta" type="submit" formaction="{% url 'expense-create' %}">Expenses Add</button></form>
         <form><button class="ui-button" type="submit" formaction="{% url 'payment-list' %}">Payments</button></form>
         <form><button class="ui-button" type="submit" formaction="{% url 'location-list' %}">Locations</button></form>
         <form><button class="ui-button" type="submit" formaction="{% url 'label-list' %}">Labels</button></form>
 
     </div>
-     <p># TODO nice chats</p>
-
+    <p>imagine nice charts...</p>
     <h1>IAFE.EXPENSES ALL</h1>
     {% if my_expense_list %}
         <ul class="list-objects">
