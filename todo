@@ -9,9 +9,12 @@ TODO:
     - chart.js for charts!
     - start journal which wants a pic, textarea, any file. one per day, edit how many times you want.
     - spyware app of lastfm, activitywatch, iphone location, etc to SPYWARE
+    - create test database with admin:admin and user:user with some fake data to test stuff in dev.
+    - generate thumbnails of any passed document and store as document_image (remove forms.py document pdf limit when done)
 
     FEATURES:
     - export csv of all expenses
+    - pdf export of expense via detail view.
     - google-api for locations and show map of all points where expenses were spent with heatmap or smth
     - map to see red points where you spent cash -> django mapbox
     - survey creator for custom journal/survey which you can fill out daily
