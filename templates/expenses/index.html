@@ -30,7 +30,17 @@
                             <br>
                         {% endif %}
 
-                        <!-- TODO add thumbnail grid of added documents and pictures.-->
+                        {% if expense.image %}
+                            {% load thumbnail %}
+                            {% thumbnail expense.image "100x100" crop="center" as im %}
+                                <div class="expense-image"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="" onclick="window.location.href='{{ expense.image.url }}'"></div>
+                            {% endthumbnail %}
+                        {% endif %}
+
+                        {% if expense.document %}
+                            <!-- TODO add field document_image which generates preview of pdf file and then use sorl to display it.-->
+                        {% endif %}
+
                         <form><button class="ui-button-small ui-button-danger" type="submit" formaction="{% url 'expense-delete' expense.id %}">DEL</button></form>
                         <form><button class="ui-button-small" type="submit" formaction="{% url 'expense-update' expense.id %}">EDIT</button></form>
                         <form><button class="ui-button-small" type="submit" formaction="{% url 'expense-detail' expense.id %}">MORE</button></form>

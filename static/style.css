@@ -204,9 +204,16 @@ form {
     color: gray;
 }
 
+.expense-image {
+    padding-bottom: 10px;
+}
 
 
 
 form {
     display: inline;
+}
+
+img {
+    max-width: 100%;
 }

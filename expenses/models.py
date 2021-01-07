@@ -143,6 +143,7 @@ class Expense(models.Model):
 
     def save(self, *args, **kwargs):
         self.convert_to_utc()
+        # TODO compress image!
         super().save(*args, **kwargs)
 
     class Meta:
