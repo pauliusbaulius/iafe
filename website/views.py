@@ -7,6 +7,7 @@ from expenses.models import Expense
 
 @login_required
 def index(request):
+    # TODO pass data to chart.js here until rest api is made.
     amount_expenses = Expense.objects.filter(owner=request.user).count()
     total_amount = Expense.objects.filter(owner=request.user).aggregate(Sum("amount"))[
         "amount__sum"

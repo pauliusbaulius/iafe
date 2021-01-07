@@ -21,22 +21,23 @@
             <th>Id</th>
         </tr>
         <tr>
-            <td>{{ expense.date }}</td>
-            <td>{{ expense.time }}</td>
+            <td>{{ expense.date|date:"Y-m-d" }}</td>
+            <td>{{ expense.time|date:"H:i" }}</td>
             <td>{{ expense.amount }}€</td>
             <td>{{ expense.location.type }}</td>
             <td>{{ expense.location.title }}</td>
-            <td>{% if expense.location.website %}{{ expense.location.website}}{% else %}None{% endif %}</td>
-            <td>{% if expense.location.address %}{{ expense.location.street }}, {{ expense.location.city }}{% else %}None{% endif %}</td>
+            <td>{% if expense.location.website %}{{ expense.location.website}}{% else %}-{% endif %}</td>
+            <td>{% if expense.location.address %}{{ expense.location.street }}, {{ expense.location.city }}{% else %}-{% endif %}</td>
             <td>{{ expense.location.country }}</td>
             <td>{{ expense.payment }}</td>
-            <td>{% if expense.comment %}{{ expense.comment }}{% else %}None{% endif %}</td>
-            <td>{% if expense.image %}<a href="{{ expense.image.url }}">Link</a>{% else %}None{%  endif %}</td>
-            <td>{% if expense.document %}<a href="{{ expense.document.url }}">Link</a>{% else %}None{%  endif %}</td>
-            <td>{% if expense.labels %}{{ expense.labels.all }}{% else %}None{% endif %}</td>
+            <td>{% if expense.comment %}{{ expense.comment }}{% else %}-{% endif %}</td>
+            <td>{% if expense.image %}<a href="{{ expense.image.url }}">Link</a>{% else %}-{%  endif %}</td>
+            <td>{% if expense.document %}<a href="{{ expense.document.url }}">Link</a>{% else %}-{%  endif %}</td>
+            <td>{% if expense.labels %}{% for l in expense.labels.all %}{{ l }} {% endfor %}{% else %}-{% endif %}</td>
             <td>{{ expense.id }}</td>
         </tr>
     </table>
-     <a class="link-emoji" href="{% url 'expense-update' expense.id %}">🖋️</a>
-    <a class="link-emoji" href="{% url 'expense-delete' expense.id %}">🗑️</a>
+    <form><button class="ui-button-small ui-button-danger" type="submit" formaction="{% url 'expense-delete' expense.id %}">DEL</button></form>
+    <form><button class="ui-button-small" type="submit" formaction="{% url 'expense-update' expense.id %}">EDIT</button></form>
+    <!--TODO-FEATURE add export pdf with pics and docs-->
 {% endblock %}

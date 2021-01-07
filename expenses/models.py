@@ -119,7 +119,7 @@ class Expense(models.Model):
     labels = models.ManyToManyField(Label)
 
     def __str__(self):
-        return f"[{self.date} {self.time}] [{self.amount}€] [{self.location.title}] [{self.labels.all()}]"
+        return f"[EXPENSE date: {self.date} time: {self.time} amount: {self.amount}€ location: {self.location.title}]"
 
     def get_absolute_url(self):
         return reverse("expense-detail", args=[str(self.id)])

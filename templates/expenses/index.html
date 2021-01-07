@@ -15,9 +15,30 @@
         <ul class="list-objects">
             {% for expense in my_expense_list %}
                 <li>
-                    <a class="link-emoji" href="{% url 'expense-update' expense.id %}">🖋️</a>
-                    <a class="link-emoji" href="{% url 'expense-delete' expense.id %}">🗑️</a>
-                    <a href="{{ expense.get_absolute_url }}">{{ expense }}</a>
+                    <div class="expense-item">
+                    <p class="expense-detail">{{ expense.date|date:"Y-m-d" }} {{ expense.time|date:"H:i" }} [{{ expense.timezone.title }}] in {{ expense.location.title }} using {{ expense.payment.title }}.</p>
+                        <p><span class="expense-amount">{{ expense.amount }}€</span></p>
+                        <p></p>
+
+                        {% if expense.labels.all %}
+                            <div style="grid-area: labels">LABELS: {% for l in expense.labels.all %} <span class="expense-detail">{{ l }}, </span> {% endfor %}</div>
+                            <br>
+                        {% endif %}
+
+                        {% if expense.comment %}
+                            <div style="grid-area: comment">COMMENT: <span class="expense-detail">{{ expense.comment }}</span></div>
+                            <br>
+                        {% endif %}
+
+                        <!-- TODO add thumbnail grid of added documents and pictures.-->
+                        <form><button class="ui-button-small ui-button-danger" type="submit" formaction="{% url 'expense-delete' expense.id %}">DEL</button></form>
+                        <form><button class="ui-button-small" type="submit" formaction="{% url 'expense-update' expense.id %}">EDIT</button></form>
+                        <form><button class="ui-button-small" type="submit" formaction="{% url 'expense-detail' expense.id %}">MORE</button></form>
+
+
+
+                    </div>
+
                 </li>
             {% endfor %}
         </ul>

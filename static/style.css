@@ -44,7 +44,11 @@ nav {
 /*
     OBJECT DISPLAY STYLING
  */
-
+.expense-table table{
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
 .expense-table tr { display: block; float: left; }
 .expense-table th { display: block; border: 1px solid black; }
 .expense-table td { display: block; border: 1px solid black; }
@@ -61,6 +65,10 @@ nav {
     /* Style for model instance listing.. */
     list-style: none;
     padding-left: 0;
+}
+
+.list-objects li {
+    padding-bottom: 10px;
 }
 
 .link-emoji {
@@ -124,6 +132,18 @@ form {
     font-size: var(--fontsize);
 }
 
+.ui-button-small {
+    background-color: black;
+    color: white;
+    border: none;
+    width: calc(var(--box-size)/2);
+    height: calc(var(--box-size)/2);
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: var(--fontsize);
+}
+
 .ui-button-danger {
     background-color: red;
 }
@@ -163,4 +183,30 @@ form {
         position: sticky;
         bottom: 0;
     }
+}
+
+/*  EXPENSES FORMATTING */
+.expense-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 3px solid black;
+}
+
+
+.expense-amount {
+    font-size: xxx-large;
+    color: red;
+    font-weight: bold;
+}
+
+.expense-detail {
+    font-size: smaller;
+    color: gray;
+}
+
+
+
+
+form {
+    display: inline;
 }
