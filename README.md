@@ -47,6 +47,7 @@ example configuration below
     
             # change me
             server_name iafe.example.org www.iafe.example.org;
+            client_max_body_size 50MB;
             location / {
                     proxy_pass http://localhost:8000;
                     # change me
